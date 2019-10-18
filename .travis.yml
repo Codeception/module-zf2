@@ -20,6 +20,10 @@ install:
   - git clone -q --depth=1 -b 4.0 --recurse-submodules https://github.com/Naktibalda/codeception-zf2-tests framework-tests
   - git --git-dir framework-tests/.git log -n 1
   - travis_retry composer update -d framework-tests --no-dev --prefer-dist --no-interaction
+
+before_script:
+  - mysql -e "create database zf2_test;"
+  - php ./framework-tests/vendor/bin/doctrine-module orm:schema-tool:create
   - php ./vendor/bin/codecept build -c framework-tests
 
 script:

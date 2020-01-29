@@ -163,15 +163,12 @@ class ZF2 extends Client
 
     private function createApplication()
     {
-        $this->application = Application::init($this->applicationConfig);
+        $this->application = Application::init(array_merge($this->applicationConfig, [
+            'service_manager' => [
+                'services' => $this->persistentServices
+            ]
+        ]));
         $serviceManager = $this->application->getServiceManager();
-
-        $serviceManager->setAllowOverride(true);
-        foreach ($this->persistentServices as $serviceName => $service) {
-            $serviceManager->setService($serviceName, $service);
-        }
-        $serviceManager->setAllowOverride(false);
-
         $sendResponseListener = $serviceManager->get('SendResponseListener');
         $events = $this->application->getEventManager();
         if (class_exists('Zend\EventManager\StaticEventManager')) {

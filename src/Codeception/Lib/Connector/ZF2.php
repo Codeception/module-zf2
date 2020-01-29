@@ -10,6 +10,7 @@ use Zend\Mvc\Application;
 use Zend\Stdlib\Parameters;
 use Zend\Uri\Http as HttpUri;
 use Symfony\Component\BrowserKit\Request as BrowserKitRequest;
+use Zend\Stdlib\ArrayUtils;
 
 class ZF2 extends Client
 {
@@ -163,7 +164,7 @@ class ZF2 extends Client
 
     private function createApplication()
     {
-        $this->application = Application::init(array_merge($this->applicationConfig, [
+        $this->application = Application::init(ArrayUtils::merge($this->applicationConfig, [
             'service_manager' => [
                 'services' => $this->persistentServices
             ]

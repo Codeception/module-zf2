@@ -176,6 +176,9 @@ class ZF2 extends Client
         }
     }
 
+    /**
+     * This is modified Zend\Application::init() to support persisted services
+     */
     private function bootstrapApplication($configuration = [])
     {
         // Prepare the service manager

@@ -144,7 +144,7 @@ class ZF2 extends Framework implements DoctrineProvider, PartedModule
 
         $this->client->persistService($this->config['em_service']);
 
-        return $this->grabServiceFromContainer('doctrine.entitymanager.orm_default');
+        return $this->grabServiceFromContainer($this->config['em_service']);
     }
 
     /**

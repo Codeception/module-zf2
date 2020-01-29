@@ -2,6 +2,7 @@
 namespace Codeception\Lib\Connector;
 
 use Codeception\Lib\Connector\ZF2\PersistentServiceManager;
+use Zend\ServiceManager\ServiceManager;
 use Symfony\Component\BrowserKit\AbstractBrowser as Client;
 use Symfony\Component\BrowserKit\Response;
 use Zend\Http\Request as HttpRequest;
@@ -163,14 +164,8 @@ class ZF2 extends Client
 
     private function createApplication()
     {
-        $this->application = Application::init($this->applicationConfig);
+        $this->application = $this->bootstrapApplication($this->applicationConfig);
         $serviceManager = $this->application->getServiceManager();
-
-        $serviceManager->setAllowOverride(true);
-        foreach ($this->persistentServices as $serviceName => $service) {
-            $serviceManager->setService($serviceName, $service);
-        }
-        $serviceManager->setAllowOverride(false);
 
         $sendResponseListener = $serviceManager->get('SendResponseListener');
         $events = $this->application->getEventManager();
@@ -179,5 +174,34 @@ class ZF2 extends Client
         } else {
             $events->detach([$sendResponseListener, 'sendResponse']); //ZF3
         }
+    }
+
+    private function bootstrapApplication($configuration = [])
+    {
+        // Prepare the service manager
+        $smConfig = isset($configuration['service_manager']) ? $configuration['service_manager'] : [];
+        $smConfig = new \Zend\Mvc\Service\ServiceManagerConfig($smConfig);
+
+        $serviceManager = new ServiceManager();
+        $smConfig->configureServiceManager($serviceManager);
+        $serviceManager->setService('ApplicationConfig', $configuration);
+
+        // Load modules
+        $serviceManager->get('ModuleManager')->loadModules();
+
+        // Keep persisted services persisted
+        foreach ($this->persistentServices as $serviceName => $service) {
+            $serviceManager->setService($serviceName, $service);
+        }
+        $serviceManager->setAllowOverride(false);
+
+        // Prepare list of listeners to bootstrap
+        $listenersFromAppConfig     = isset($configuration['listeners']) ? $configuration['listeners'] : [];
+        $config                     = $serviceManager->get('config');
+        $listenersFromConfigService = isset($config['listeners']) ? $config['listeners'] : [];
+
+        $listeners = array_unique(array_merge($listenersFromConfigService, $listenersFromAppConfig));
+
+        return $serviceManager->get('Application')->bootstrap($listeners);
     }
 }

@@ -193,6 +193,7 @@ class ZF2 extends Client
         $serviceManager->get('ModuleManager')->loadModules();
 
         // Keep persisted services persisted
+        $serviceManager->setAllowOverride(true);
         foreach ($this->persistentServices as $serviceName => $service) {
             $serviceManager->setService($serviceName, $service);
         }

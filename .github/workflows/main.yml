@@ -40,9 +40,6 @@ jobs:
         git clone -b 4.0 --recurse-submodules https://github.com/Naktibalda/codeception-zf2-tests.git framework-tests
         git --git-dir framework-tests/.git log -n 1
         composer update -d framework-tests --no-dev --prefer-dist --no-interaction
-        cp framework-tests/.env.testing framework-tests/.env
-        touch framework-tests/storage/testing.sqlite
-        php framework-tests/artisan migrate --database=testing --force
         php ./framework-tests/vendor/bin/doctrine-module orm:schema-tool:create
 
     - name: Validate composer.json and composer.lock

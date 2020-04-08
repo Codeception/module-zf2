@@ -37,7 +37,7 @@ jobs:
 
     - name: Install SF2 Sample
       run: |
-        git clone -b 4.0 --recurse-submodules https://github.com/Naktibalda/codeception-zf2-tests.git framework-tests
+        git clone -b patch-1 --recurse-submodules https://github.com/eXorus/codeception-zf2-tests.git framework-tests
         git --git-dir framework-tests/.git log -n 1
         composer update -d framework-tests --no-dev --prefer-dist --no-interaction
         php ./framework-tests/vendor/bin/doctrine-module orm:schema-tool:create

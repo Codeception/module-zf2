@@ -40,7 +40,7 @@ jobs:
       with:
         repository: Naktibalda/codeception-zf2-tests
         path: framework-tests
-        ref: patch-1
+        ref: 4.0
         submodules: recursive
 
     - name: Install SF2 Sample

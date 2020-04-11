@@ -35,10 +35,16 @@ jobs:
         extensions: mbstring, php-xml, ext-dom, pdo, mysql, zip
         coverage: none
 
+    - name: Checkout SF2 Sample
+      uses: actions/checkout@v2
+      with:
+        repository: Naktibalda/codeception-zf2-tests
+        path: framework-tests
+        ref: patch-1
+        submodules: recursive
+
     - name: Install SF2 Sample
       run: |
-        git clone -b patch-1 --recurse-submodules https://github.com/eXorus/codeception-zf2-tests.git framework-tests
-        git --git-dir framework-tests/.git log -n 1
         composer update -d framework-tests --no-dev --prefer-dist --no-interaction
         php ./framework-tests/vendor/bin/doctrine-module orm:schema-tool:create
 

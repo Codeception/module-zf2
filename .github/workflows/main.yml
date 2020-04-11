@@ -10,7 +10,7 @@ jobs:
       mysql:
         image: mysql:5.7
         env:
-            MYSQL_ROOT_PASSWORD: root
+            MYSQL_ALLOW_EMPTY_PASSWORD: true
             MYSQL_DATABASE: zf2_test
         ports:
           - 3306:3306
@@ -45,6 +45,7 @@ jobs:
 
     - name: Install SF2 Sample
       run: |
+        sed -i -e "s/localhost/127.0.0.1/g" framework-tests/config/autoload/doctrine.global.php
         composer update -d framework-tests --no-dev --prefer-dist --no-interaction
         php ./framework-tests/vendor/bin/doctrine-module orm:schema-tool:create
 

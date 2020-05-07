@@ -1,6 +1,6 @@
 # Codeception module for Zend Framework 2 and 3
 
-[![Build Status](https://travis-ci.org/Codeception/module-zf2.svg?branch=master)](https://travis-ci.org/Codeception/module-zf2)
+![Build Status](https://github.com/Codeception/module-zf2/workflows/CI/badge.svg)
 
 ## Installation
 

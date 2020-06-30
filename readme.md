@@ -1,4 +1,4 @@
-# Codeception module for Zend Framework 2 and 3
+# Codeception module for the Laminas Project
 
 ![Build Status](https://github.com/Codeception/module-zf2/workflows/CI/badge.svg)
 

@@ -1,7 +1,7 @@
 {
-    "name":"codeception/module-zf2",
-    "description":"Codeception module for Zend Framework 2 and 3",
-    "keywords":["codeception", "zf2", "zf3", "zendframework"],
+    "name":"codeception/module-laminas",
+    "description":"Codeception module for the Laminas Project",
+    "keywords":["codeception", "laminas"],
     "homepage":"http://codeception.com/",
     "type":"library",
     "license":"MIT",
@@ -15,9 +15,12 @@
     ],
     "minimum-stability": "RC",
     "require": {
-        "php": ">=5.6.0 <8.0",
+        "php": "^7.1",
         "codeception/lib-innerbrowser": "dev-master | ^1.0",
-        "codeception/codeception": "^4.0"
+        "codeception/codeception": "^4.0",
+        "laminas/laminas-console": "^2.8.0",
+        "laminas/laminas-db": "^2.11.3",
+        "laminas/laminas-mvc": "^3.1.1"
     },
     "require-dev": {
         "codeception/util-robohelpers": "dev-master",

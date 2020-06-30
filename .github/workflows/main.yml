@@ -11,7 +11,7 @@ jobs:
         image: mysql:5.7
         env:
             MYSQL_ALLOW_EMPTY_PASSWORD: true
-            MYSQL_DATABASE: zf2_test
+            MYSQL_DATABASE: laminas_test
         ports:
           - 3306:3306
         options: >-

@@ -1,12 +1,11 @@
-# ZF2
+# Laminas Project
 
 
-This module allows you to run tests inside Zend Framework 2 and Zend Framework 3.
+This module allows you to run tests inside the Laminas Project.
 
-File `init_autoloader` in project's root is required by Zend Framework 2.
 Uses `tests/application.config.php` config file by default.
 
-Note: services part and Doctrine integration is not compatible with ZF3 yet
+Note: services part and Doctrine integration is not compatible with Laminas yet
 
 ## Status
 
@@ -20,8 +19,8 @@ Note: services part and Doctrine integration is not compatible with ZF3 yet
 
 ## Public Properties
 
-* application -  instance of `\Zend\Mvc\ApplicationInterface`
-* db - instance of `\Zend\Db\Adapter\AdapterInterface`
+* application -  instance of `\Laminas\Mvc\ApplicationInterface`
+* db - instance of `\Laminas\Db\Adapter\AdapterInterface`
 * client - BrowserKit client
 
 ## Parts
@@ -34,10 +33,10 @@ Usage example:
 actor: AcceptanceTester
 modules:
     enabled:
-        - ZF2:
+        - Laminas:
             part: services
         - Doctrine2:
-            depends: ZF2
+            depends: Laminas
         - WebDriver:
             url: http://your-url.com
             browser: phantomjs
@@ -59,10 +58,10 @@ Use it in Helpers or GroupObject or Extension classes:
 
 ```php
 <?php
-$els = $this->getModule('ZF2')->_findElements('.items');
-$els = $this->getModule('ZF2')->_findElements(['name' => 'username']);
+$els = $this->getModule('Laminas')->_findElements('.items');
+$els = $this->getModule('Laminas')->_findElements(['name' => 'username']);
 
-$editLinks = $this->getModule('ZF2')->_findElements(['link' => 'Edit']);
+$editLinks = $this->getModule('Laminas')->_findElements(['link' => 'Edit']);
 // now you can iterate over $editLinks and check that all them have valid hrefs
 ```
 
@@ -85,7 +84,7 @@ Use it in Helpers when you want to retrieve response of request performed by ano
 // in Helper class
 public function seeResponseContains($text)
 {
-   $this->assertStringContainsString($text, $this->getModule('ZF2')->_getResponseContent(), "response contains");
+   $this->assertStringContainsString($text, $this->getModule('Laminas')->_getResponseContent(), "response contains");
 }
 ?>
 ```
@@ -105,7 +104,7 @@ Useful for testing multi-step forms on a specific step.
 <?php
 // in Helper class
 public function openCheckoutFormStep2($orderId) {
-    $this->getModule('ZF2')->_loadPage('POST', '/checkout/step2', ['order' => $orderId]);
+    $this->getModule('Laminas')->_loadPage('POST', '/checkout/step2', ['order' => $orderId]);
 }
 ?>
 ```
@@ -130,7 +129,7 @@ Returns a string with response body.
 <?php
 // in Helper class
 public function createUserByApi($name) {
-    $userData = $this->getModule('ZF2')->_request('POST', '/api/v1/users', ['name' => $name]);
+    $userData = $this->getModule('Laminas')->_request('POST', '/api/v1/users', ['name' => $name]);
     $user = json_decode($userData);
     return $user->id;
 }
@@ -157,14 +156,14 @@ To load arbitrary page for interaction, use `_loadPage` method.
 Saves page source of to a file
 
 ```php
-$this->getModule('ZF2')->_savePageSource(codecept_output_dir().'page.html');
+$this->getModule('Laminas')->_savePageSource(codecept_output_dir().'page.html');
 ```
  * `param` $filename
 
 
 ### addServiceToContainer
  
-Adds service to ZF2 container
+Adds service to a Laminas container
  * `param string` $name
  * `param object` $service
  * `[Part]` services
@@ -626,7 +625,7 @@ Grabs current page source code.
 
 ### grabServiceFromContainer
  
-Grabs a service from ZF2 container.
+Grabs a service from a Laminas container.
 Recommended to use for unit testing.
 
 ``` php

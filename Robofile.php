@@ -2,7 +2,7 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-use Codeception\Module\ZF2;
+use Codeception\Module\Laminas;
 use Codeception\Util\DocumentationHelpers;
 
 class RoboFile extends \Robo\Tasks
@@ -11,7 +11,7 @@ class RoboFile extends \Robo\Tasks
 
     public function buildDocs()
     {
-        $className = ZF2::class;
+        $className = Laminas::class;
         $classPath = str_replace('\\', '/', $className);
         $source = "https://github.com/Codeception/module-zf2/tree/master/src/$classPath.php";
         $sourceMessage = '<p>&nbsp;</p><div class="alert alert-warning">Module reference is taken from the source code. <a href="' . $source . '">Help us to improve documentation. Edit module reference</a></div>';

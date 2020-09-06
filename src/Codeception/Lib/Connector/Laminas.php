@@ -45,13 +45,13 @@ class Laminas extends Client
     {
         $this->createApplication();
 
-        $zendRequest = $this->application->getRequest();
-        $uri         = new HttpUri($request->getUri());
-        $queryString = $uri->getQuery();
-        $method      = \strtoupper($request->getMethod());
-        $query       = [];
-        $post        = [];
-        $content     = $request->getContent();
+        $laminasRequest = $this->application->getRequest();
+        $uri            = new HttpUri($request->getUri());
+        $queryString    = $uri->getQuery();
+        $method         = \strtoupper($request->getMethod());
+        $query          = [];
+        $post           = [];
+        $content        = $request->getContent();
 
         if ($queryString) {
             \parse_str($queryString, $query);
@@ -61,14 +61,14 @@ class Laminas extends Client
             $post = $request->getParameters();
         }
 
-        $zendRequest->setCookies(new Parameters($request->getCookies()));
-        $zendRequest->setServer(new Parameters($request->getServer()));
-        $zendRequest->setQuery(new Parameters($query));
-        $zendRequest->setPost(new Parameters($post));
-        $zendRequest->setFiles(new Parameters($request->getFiles()));
-        $zendRequest->setContent(\is_null($content) ? '' : $content);
-        $zendRequest->setMethod($method);
-        $zendRequest->setUri($uri);
+        $laminasRequest->setCookies(new Parameters($request->getCookies()));
+        $laminasRequest->setServer(new Parameters($request->getServer()));
+        $laminasRequest->setQuery(new Parameters($query));
+        $laminasRequest->setPost(new Parameters($post));
+        $laminasRequest->setFiles(new Parameters($request->getFiles()));
+        $laminasRequest->setContent(\is_null($content) ? '' : $content);
+        $laminasRequest->setMethod($method);
+        $laminasRequest->setUri($uri);
 
         $requestUri = $uri->getPath();
 
@@ -76,18 +76,18 @@ class Laminas extends Client
             $requestUri .= '?' . $queryString;
         }
 
-        $zendRequest->setRequestUri($requestUri);
+        $laminasRequest->setRequestUri($requestUri);
 
-        $zendRequest->setHeaders($this->extractHeaders($request));
+        $laminasRequest->setHeaders($this->extractHeaders($request));
 
         $this->application->run();
 
         // get the response *after* the application has run, because other Laminas
         //     libraries like API Agility may *replace* the application's response
         //
-        $zendResponse = $this->application->getResponse();
+        $laminasResponse = $this->application->getResponse();
 
-        $this->laminasRequest = $zendRequest;
+        $this->laminasRequest = $laminasRequest;
 
         $exception = $this->application->getMvcEvent()->getParam('exception');
         if ($exception instanceof Exception) {
@@ -95,9 +95,9 @@ class Laminas extends Client
         }
 
         return new Response(
-            $zendResponse->getBody(),
-            $zendResponse->getStatusCode(),
-            $zendResponse->getHeaders()->toArray()
+            $laminasResponse->getBody(),
+            $laminasResponse->getStatusCode(),
+            $laminasResponse->getHeaders()->toArray()
         );
     }
 
@@ -171,10 +171,10 @@ class Laminas extends Client
             }
         }
 
-        $zendHeaders = new HttpHeaders();
-        $zendHeaders->addHeaders($headers);
+        $httpHeaders = new HttpHeaders();
+        $httpHeaders->addHeaders($headers);
 
-        return $zendHeaders;
+        return $httpHeaders;
     }
 
     private function createApplication(): void

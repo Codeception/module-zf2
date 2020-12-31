@@ -37,7 +37,10 @@ use Codeception\Lib\Connector\ZF2 as ZF2Connector;
  *
  * ## Parts
  *
- * * services - allows to use grabServiceFromContainer and addServiceToContainer with WebDriver or PhpBrowser modules.
+ * * `services` Allows to use `grabServiceFromContainer()` and `addServiceToContainer()`
+ *
+ * See [WebDriver module](https://codeception.com/docs/modules/WebDriver#Loading-Parts-from-other-Modules)
+ * for general information on how to load parts of a framework module.
  *
  * Usage example:
  *

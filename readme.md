@@ -2,6 +2,11 @@
 
 ![Build Status](https://github.com/Codeception/module-zf2/workflows/CI/badge.svg)
 
+## This repository is discontinued ...
+
+... in favor of https://github.com/Codeception/module-laminas
+
+
 ## Installation
 
 ```

@@ -16,3 +16,5 @@ composer require --dev "codeception/module-zf2"
 ## Documentation
 
 <a href="documentation.md">Look at documentation.md file</a>
+
+[Changelog](https://github.com/Codeception/module-zf2/releases)

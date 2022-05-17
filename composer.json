@@ -2,7 +2,7 @@
     "name":"codeception/module-zf2",
     "description":"Codeception module for Zend Framework 2 and 3",
     "keywords":["codeception", "zf2", "zf3", "zendframework"],
-    "homepage":"http://codeception.com/",
+    "homepage":"https://codeception.com/",
     "type":"library",
     "license":"MIT",
     "authors":[
